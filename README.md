@@ -1,24 +1,21 @@
-# README
+# Odin-Book
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a final project [TheOdinProject's](http://www.theodinproject.com) Ruby on Rails track. See [here](http://www.theodinproject.com/courses/ruby-on-rails/lessons/final-project?ref=lnav) for more information
 
-Things you may want to cover:
+Goals of this project include:
 
-* Ruby version
+* User Authentication by using the Devise gem.
 
-* System dependencies
+* Use omniauth so users can sign in using Facebook.
 
-* Configuration
+* Users can send Friend Requests to other Users.
 
-* Database creation
+* A User must accept the Friend Request to become friends.
 
-* Database initialization
+* The Friend Request shows up in the notifications section of a User's navbar.
 
-* How to run the test suite
+* Users can create Posts (text only to start).
 
-* Services (job queues, cache servers, search engines, etc.)
+* Users can Like Posts.
 
-* Deployment instructions
-
-* ...
+* Users can Comment on Posts.
