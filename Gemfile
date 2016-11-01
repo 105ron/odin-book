@@ -1,6 +1,13 @@
 source 'https://rubygems.org'
 
+#Specify Ruby version for Heroku
+ruby "2.3.1"
 
+#Use devise for user authentications
+gem 'devise', '~> 4.2.0'
+group :development do
+  gem 'guard', '~> 2.14.0'
+end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
