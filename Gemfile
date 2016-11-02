@@ -3,11 +3,12 @@ source 'https://rubygems.org'
 #Specify Ruby version for Heroku
 ruby "2.3.1"
 
+
+gem "figaro"
+# Use omniauth-facebook to sign in using facebook
+gem 'omniauth-facebook'
 #Use devise for user authentications
-gem 'devise', '~> 4.2.0'
-group :development do
-  gem 'guard', '~> 2.14.0'
-end
+gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
@@ -50,6 +51,14 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+group :test do
+  gem 'rails-controller-testing', '0.1.1'
+  gem 'minitest-reporters',       '1.1.9'
+  gem 'guard',                    '2.13.0'
+  gem 'guard-minitest',           '2.4.4'
+end
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
