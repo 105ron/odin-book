@@ -12,6 +12,16 @@
   	<% flash.each do |message_type, message| %>
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
     <% end %>
+    
+    <% if user_signed_in? %>
+      <p>Welcome <%= current_user.email %></p>
+      <%= link_to 'Logged In [click to logout]', destroy_user_session_path, :method => :delete %>
+    <% else %>
+      <p>You are not signed in.</p>
+      <%= link_to 'Login', new_user_session_path %>
+      <%= link_to 'SignUp', new_user_registration_path %>
+      <%= link_to 'Login with Facebook', user_facebook_omniauth_authorize_path %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
