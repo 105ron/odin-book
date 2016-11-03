@@ -7,6 +7,8 @@ Rails.application.configure do
 
   #Mailer config for devise
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  #Use letter opener to preview emails in browser when ActiveMailer sends email
+  config.action_mailer.delivery_method = :letter_opener
 
   config.cache_classes = false
 
