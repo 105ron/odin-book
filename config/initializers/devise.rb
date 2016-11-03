@@ -245,8 +245,11 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  config.omniauth :facebook, Figaro.env.facebook_app_id, Figaro.env.facebook_app_secret,
-                             :scope => 'email, user_location, publish_actions'
+  config.omniauth :facebook, Figaro.env.facebook_app_id, 
+                             Figaro.env.facebook_app_secret,
+                             scope: 'email', info_fields: 'email, first_name, last_name'
+                             #Facebook to populate email, first and last name
+                             #:scope => 'email, user_location, publish_actions'
 
 
   # Add a new OmniAuth provider. Check the wiki for more information on setting
