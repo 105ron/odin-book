@@ -1,4 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 rhys:
+  first_name: rhys
+  last_name: classified
   email: tests@odin-book.com
   encrypted_password: <%= User.new.send(:password_digest, 'foobar') %>

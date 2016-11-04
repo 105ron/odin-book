@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%= full_title(yield(:title)) %></title>
+    <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -14,8 +14,7 @@
     <% end %>
     
     <% if user_signed_in? %>
-      <p>Welcome <%= current_user.email %></p>
-      <%= link_to 'Logged In [click to logout]', destroy_user_session_path, :method => :delete %>
+      <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
     <% else %>
       <p>You are not signed in.</p>
       <%= link_to 'Login', new_user_session_path %>
