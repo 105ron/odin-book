@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 ruby "2.3.1"
 
 
+#Use faker to seed database with dummy users
+gem "faker"
 gem "figaro"
 # Use omniauth-facebook to sign in using facebook
 gem 'omniauth-facebook'
