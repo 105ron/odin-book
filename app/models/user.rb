@@ -4,6 +4,9 @@ class User < ApplicationRecord
   has_many :friends, :through => :friendships, :source => :user
 
 
+  scope :pending_requests,  -> (user = nil){ Friendship.where(user_id: user, is_pending: true) }
+  scope :confirmed_friends, -> (user = nil){ Friendship.where(user_id: user, confirmed: true) }
+
   # Devise settings
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -36,4 +39,6 @@ class User < ApplicationRecord
       end    
     end
   end
+
+
 end
