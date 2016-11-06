@@ -5,13 +5,21 @@ class Friendship < ApplicationRecord
   #But first check if this relationship has already been created by this method
   after_create do |u|
     if !Friendship.find_by(user_id: u.friend_id, friend_id: u.user_id)
-      Friendship.create!(:user_id => u.friend_id, :friend_id => u.user_id)
+      Friendship.create!(user_id: u.friend_id, friend_id: u.user_id, 
+                         is_pending: true) #set is_pending to true to define requestee 
     end
   end
-  after_update do |p|
+
+  after_update do |u|
     reciprocal = Friendship.find_by(user_id: u.friend_id, friend_id: u.user_id)
-    reciprocal.confirmed = self.confirmed unless reciprocal.nil? #don't run if no record found
+    #prevent infite loop of updating two records
+    unless reciprocal.confirmed == self.confirmed || reciprocal.nil? 
+      reciprocal.confirmed = self.confirmed 
+      reciprocal.save
+    end
   end
+  
+  #delete the other side of friendship
   after_destroy do |u|
     reciprocal = Friendship.find_by(user_id: u.friend_id, friend_id: u.user_id)
     reciprocal.destroy unless reciprocal.nil?
