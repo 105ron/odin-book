@@ -2,6 +2,7 @@ require 'test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
 
+
 	def setup
 		@rhys =  users(:rhys)
 		@friend = users(:friend)
@@ -9,7 +10,6 @@ class FriendshipTest < ActiveSupport::TestCase
                                  friend_id: @friend.id)
     @inverse_friendship = Friendship.find_by(user_id: @friend.id, 
     																			 friend_id: @rhys.id)
-
   end
 
 
@@ -23,20 +23,24 @@ class FriendshipTest < ActiveSupport::TestCase
     assert_not @friendship.valid?
   end
 
+
   test "should require a user_id" do
     @friendship.user_id = nil
     assert_not @friendship.valid?
   end
+
 
   test "after creation friendship should be unconfirmed" do
   	assert @friendship.confirmed == false
   	assert @inverse_friendship.confirmed == false
   end
 
+
   test "Only the requestee should have a pending friend request" do
   	assert @friendship.is_pending == false
   	assert @inverse_friendship.is_pending = true
   end
+
 
   test "After confirming friendship both relations are confirmed" do
   	@inverse_friendship.confirmed = true
@@ -46,11 +50,19 @@ class FriendshipTest < ActiveSupport::TestCase
   	assert @inverse_friendship.confirmed == true
   end
 
+
   test "After destroying friendship both relations are destroyed" do
   	@friendship.destroy
   	@inverse_friendship =Friendship.find_by(user_id: @friend.id, 
     																			 friend_id: @rhys.id)
   	assert_nil @inverse_friendship
+  end
+
+
+  test "Friendships can not be duplicated" do
+  	@friendship = Friendship.new(user_id: @rhys.id,
+                                 friend_id: @friend.id)
+  	assert_not @friendship.valid?
   end
 
 end

@@ -3,6 +3,8 @@ class Friendship < ApplicationRecord
 	belongs_to :user, :foreign_key => :friend_id
   validates :user_id, presence: true
   validates :friend_id, presence: true
+  validates_uniqueness_of :user_id, :scope => :friend_id, 
+                          :message => "can only have friendship with this user"
 
 
   
