@@ -69,4 +69,11 @@
 
 	Friendship.create!(user_id: 9, friend_id: rhys.id)
 
-users = [rhys, friend, non_friend]
+
+### POSTS ###
+#Each user has 15 posts
+users = User.all
+15.times do
+  content = Faker::Lorem.sentence(45)
+  users.each { |user| user.posts.create!(content: content) }
+end
