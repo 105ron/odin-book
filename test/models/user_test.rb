@@ -67,4 +67,13 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "associated microposts should be destroyed" do
+    @user.save
+    @user.posts.create!(content: "Lorem ipsum")
+    puts @user.posts
+    assert_difference 'Post.count', -1 do
+      @user.destroy
+    end
+  end
+
 end

@@ -1,6 +1,6 @@
 ### USERS ###
 #me
-user = User.new(email: 'rhys@rails.org',
+rhys = User.new(email: 'rhys@rails.org',
              first_name: 'Rhys',
              last_name: 'Rails',
              password: 'password',
@@ -9,7 +9,7 @@ user.skip_confirmation!
 user.save!
 
 #my friend
-user = User.new(email: 'friend@rails.org',
+friend = User.new(email: 'friend@rails.org',
 	              first_name: 'Nice',
 	              last_name: 'Guy',
 	              password: 'password',
@@ -18,7 +18,7 @@ user.skip_confirmation!
 user.save!
 
 #A friend I don't like (unconfirmed friend request)
-user = User.new(email: 'notafriend@rails.org',
+non_friend = User.new(email: 'notafriend@rails.org',
              	  first_name: 'Nota',
              		last_name: 'Friend',
              		password: 'password',
