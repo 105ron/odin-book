@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships, :source => :user
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   scope :pending_requests,  -> (user = nil){ Friendship.where(user_id: user, is_pending: true) }
   scope :confirmed_friends, -> (user = nil){ Friendship.where(user_id: user, confirmed: true) }
