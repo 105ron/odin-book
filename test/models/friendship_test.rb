@@ -2,15 +2,13 @@ require 'test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
 
-
 	def setup
-		@rhys =  users(:rhys)
-		@friend = users(:friend)
-    @friendship = Friendship.create(user_id: @rhys.id,
-                                 friend_id: @friend.id)
-    @inverse_friendship = Friendship.find_by(user_id: @friend.id, 
-    																			 friend_id: @rhys.id)
-  end
+    @rhys =  users(:rhys)
+    @friend = users(:friend)
+    @friendship = Friendship.create(user_id: @rhys.id, friend_id: @friend.id)
+    @inverse_friendship = Friendship.find_by(user_id: @friend.id,
+                                             friend_id: @rhys.id)
+  end  
 
 
   test "should be valid" do
