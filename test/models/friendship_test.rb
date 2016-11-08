@@ -52,8 +52,12 @@ class FriendshipTest < ActiveSupport::TestCase
 
 
   test "After destroying friendship both relations are destroyed" do
-  	@friendship.destroy
-  	@inverse_friendship =Friendship.find_by(user_id: @friend.id, 
+    #destroy should delete both sides or relationship
+    assert_difference 'Friendship.count', -2 do 
+      @friendship.destroy
+  	end
+    #Double check inverse is not found and returns nil
+    @inverse_friendship =Friendship.find_by(user_id: @friend.id, 
     																			 friend_id: @rhys.id)
   	assert_nil @inverse_friendship
   end
