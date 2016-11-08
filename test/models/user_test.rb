@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-
   
   def setup
     @user = users(:rhys)
@@ -68,13 +67,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "associated microposts should be destroyed" do
-    @user.save
-    @user.posts.create!(content: "Lorem ipsum")
-    puts @user.posts
-    assert_difference 'Post.count', -1 do
+
+  test "associated posts should be destroyed" do
+    assert_difference 'Post.count', -2 do
+      #two post for rhys in fixtures
       @user.destroy
     end
   end
+
+
+  test "associated comments should be destroyed" do
+    assert_difference 'Comment.count', -3 do
+      #two comments on rhys' most_recent post plus
+      #rhys' comment on another users post in fixtures
+      @user.destroy
+    end
+  end  
 
 end

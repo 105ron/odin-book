@@ -3,8 +3,7 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
   
   def setup
-    @user = users(:rhys)
-    @post = @user.posts.build(content: "A test post by Rhys.")
+    @post = posts(:most_recent)
   end
 
 
@@ -31,9 +30,24 @@ class PostTest < ActiveSupport::TestCase
     @post.content = "a" * 2049
     assert_not @post.valid?
   end
+
   
   test "order should be most recent first" do
     assert_equal posts(:most_recent), Post.first
+  end
+
+
+  test "post should be destroyed" do
+    assert_difference 'Post.count', -1 do
+      @post.destroy
+    end
+  end
+
+  test "associated comments should be destroyed" do
+    assert_difference 'Comment.count', -2 do
+      #two comments for post in fxtures
+      @post.destroy
+    end
   end
 
 end

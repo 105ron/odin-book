@@ -1,17 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 name:
   content: "I love Estella Lenna Bailey"
-  created_at: <%= 10.minutes.ago %>
+  user: friend
+  created_at: <%= 20.minutes.ago %>
 
 something_smart:
   content: "If we input the hard drive, we can get to the HDD transmitter through the bluetooth HDD circuit!"
+  user: rhys
   created_at: <%= 3.years.ago %>
 
 lorem_words:
   content: "et perspiciatis velit sed quis autem sed architecto consequuntur reprehenderit ipsa officia quam iste"
+  user: friend
   created_at: <%= 2.hours.ago %>
 
 most_recent:
   content: "Roof microdosing loko gastropub keytar authentic fap five dollar toast carry deep v kale chips everyday fingerstache paleo freegan banh mi gluten-free vhs."
-  created_at: <%= Time.zone.now %>
+  user: rhys
+  created_at: <%= 15.minutes.ago %>
