@@ -64,7 +64,7 @@
 
 
 	#two proposed friendship awaiting Rhys' approval
-	Friendship.create!(user_id: 8, friend_id: rhys.id)
+	Friendship.create!(user_id: non_friend.id, friend_id: rhys.id)
 
 
 	Friendship.create!(user_id: 9, friend_id: rhys.id)
