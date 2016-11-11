@@ -43,6 +43,8 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  #factory girl for testing objects
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -63,6 +65,8 @@ group :test do
   gem 'minitest-reporters',       '1.1.9'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
+  #display notifications in OSX
+  gem "minitest-osx"
 end
 
 

@@ -3,9 +3,8 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   
   def setup
-    @user = users(:rhys)
+    @user = build(:user)
   end
-
 
   test "should be valid" do
     assert @user.valid?
@@ -44,16 +43,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
-  test "email should be unique" do
-    @user.email = "a" * 244 + "@example.com"
-    assert_not @user.valid?
-  end
-
-
   test "email addresses should be unique" do
+    @user.save
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
-    @user.save
     assert_not duplicate_user.valid?
   end
 
@@ -68,20 +61,20 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
-  test "associated posts should be destroyed" do
-    assert_difference 'Post.count', -2 do
-      #two post for rhys in fixtures
-      @user.destroy
+  test "users posts and comments on users post should be destroyed" do
+    @user.save
+    3.times do
+      @post = create(:post, user_id: @user.id) 
+      3.times do
+        comment = create(:comment, post_id: @post.id)
+      end
+    end
+    assert_difference 'User.count', -1 do
+      assert_difference 'Post.count', -3 do
+        assert_difference 'Comment.count', -9 do
+          @user.destroy
+        end
+      end
     end
   end
-
-
-  test "associated comments should be destroyed" do
-    assert_difference 'Comment.count', -3 do
-      #two comments on rhys' most_recent post plus
-      #rhys' comment on another users post in fixtures
-      @user.destroy
-    end
-  end  
-
 end

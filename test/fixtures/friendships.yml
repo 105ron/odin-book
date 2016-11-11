@@ -1,4 +1,0 @@
-good_friends: 
-  user_id: (:rhys.id)
-  friend_id: (:friend.id)
-

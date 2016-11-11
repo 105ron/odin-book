@@ -3,7 +3,7 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
   
   def setup
-    @comment = comments(:comments_rhys)
+    @comment = build(:comment)
   end
 
 
@@ -39,7 +39,17 @@ class CommentTest < ActiveSupport::TestCase
 
   
   test "order should be most recent first" do
+    5.times { create(:comment) }
+    @comment = create(:comment, created_at: Time.now)
     assert_equal @comment, Comment.first
+  end
+
+
+  test "associated comments should be destroyed" do
+    @comment.save
+    assert_difference 'Comment.count', -1 do
+      @comment.user.destroy
+    end
   end
 
 end
