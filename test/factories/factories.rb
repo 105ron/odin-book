@@ -36,5 +36,13 @@ FactoryGirl.define do
     end
   end
 
+  factory :like do
+    user
+    post
+    sequence :created_at do |n|
+      n.minutes.ago
+    end
+  end
+
 
 end
