@@ -61,10 +61,22 @@ class FriendshipTest < ActiveSupport::TestCase
   end
 
 
-  test "Friendships can not be duplicated" do
+  test "Friendships cannot be duplicated" do
     @friendship = Friendship.new(user_id: @rhys.id,
                                  friend_id: @friend.id)
     assert_not @friendship.valid?
+  end
+
+  test "Friendships should be destroy if reqestor is destroyed" do
+    assert_difference 'Friendship.count', -2 do
+      @rhys.destroy
+    end
+  end
+
+  test "Friendships should be destroy if requestee is destroyed" do
+    assert_difference 'Friendship.count', -2 do
+      @friend.destroy
+    end
   end
 
 

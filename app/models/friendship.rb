@@ -2,7 +2,6 @@ class Friendship < ApplicationRecord
   #Friendship table creates and maintains two rows for each friendship
 	belongs_to :user, :foreign_key => :friend_id
   
-
   #default_scope -> { where(confirmed: true) }
   #doesn't allow to confirm friends. Never use default scopes
 

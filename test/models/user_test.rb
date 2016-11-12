@@ -77,4 +77,44 @@ class UserTest < ActiveSupport::TestCase
       end
     end
   end
+
+
+  test "should create and destroy friendships" do
+    rhys = create(:user)
+    friend = create(:user)
+    assert_not rhys.friends?(friend)
+    rhys.request_friendship(friend)
+    #Not yet friends without friend approving request
+    assert_not rhys.friends?(friend)
+    assert_not friend.friends?(rhys)
+    #check only friend has a pending friendship request
+    assert friend.pending_friendship?(rhys)
+    assert_not rhys.pending_friendship?(friend)
+    #friend accepts request
+    friend.accept_friendship(rhys)
+    #Now check both are friends
+    assert rhys.friends?(friend)
+    assert friend.friends?(rhys)
+    assert_difference 'Friendship.count', -2 do
+      rhys.remove_friendship(friend)
+    end
+    assert_not rhys.friends?(friend)
+    assert_not friend.friends?(rhys)
+  end
+
+  test "should detroy a friendship if a friend denies request" do
+    rhys = create(:user)
+    friend = create(:user)
+    assert_not rhys.friends?(friend)
+    rhys.request_friendship(friend)
+    #Not yet friends without friend approving request
+    assert_difference 'Friendship.count', -2 do
+      friend.remove_friendship(rhys)
+    end
+    assert_not rhys.friends?(friend)
+    assert_not friend.friends?(rhys)
+  end
+
+
+
 end

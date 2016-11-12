@@ -1,10 +1,11 @@
 class User < ApplicationRecord
   
-  has_many :friendships, :dependent => :destroy
-  has_many :friends, :through => :friendships, :source => :user
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :friendships, :dependent => :destroy
+  has_many :friends, :through => :friendships, :source => :user 
+  
 
   scope :pending_requests,  -> (user = nil){ Friendship.where(user_id: user, is_pending: true) }
   scope :confirmed_friends, -> (user = nil){ Friendship.where(user_id: user, confirmed: true) }
@@ -20,7 +21,64 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
 
 
-  #For sign in and creating user with omniauth-facebook through devise
+  def feedone
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
+  end
+ 
+
+  def request_friendship(other_user)
+    friendships.create(friend_id: other_user.id)
+  end
+
+
+  # Find users friendship that are awaiting approval
+  def pending_friends
+    User.joins("INNER JOIN friendships ON users.id = friend_id WHERE 
+                        friendships.user_id = #{self.id} AND 
+                        friendships.is_pending = true")
+  end
+
+
+  def friends
+    User.joins("INNER JOIN friendships ON users.id = friend_id WHERE 
+                        friendships.user_id = #{self.id} AND 
+                        friendships.confirmed = true")
+  end
+
+
+  def accept_friendship(other_user)
+    friendship = find_friendship(self.id, other_user.id)
+    friendship.update(is_pending: false, confirmed:true) unless friendship.nil? #prevent possible errors
+  end
+
+
+  def remove_friendship(other_user)
+    friendship = find_friendship(self.id, other_user.id)
+    friendship.destroy
+  end
+
+
+  def find_friendship(user, other_user)
+    friendship = Friendship.find_by(user_id: user, friend_id: other_user)
+  end
+
+
+  # Returns true if the current user needs to accept friendship of other user.
+  def pending_friendship?(other_user)
+    pending_friends.include?(other_user)
+  end
+
+
+  # Returns true if the current user is following the other user.
+  def friends?(other_user)
+    friends.include?(other_user)
+  end
+
+
+  # For sign in and creating user with omniauth-facebook through devise
 	def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
