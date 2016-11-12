@@ -2,6 +2,7 @@ require 'test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
 
+
 	def setup
     @rhys =  create(:user)
     @friend = create(:user)
@@ -65,7 +66,6 @@ class FriendshipTest < ActiveSupport::TestCase
                                  friend_id: @friend.id)
     assert_not @friendship.valid?
   end
-
 
 
 end
