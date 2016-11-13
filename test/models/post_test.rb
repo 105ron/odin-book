@@ -45,5 +45,16 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
+  #Test to see if we can see the users who have liked a post
+  test "post should return user name of users who have liked the post" do
+    rhys = create(:user)
+    bob = create(:user)
+    @post.save
+    @post.like_post(rhys)
+    @post.like_post(bob)
+    assert @post.likes_users.include?(rhys)
+    assert @post.likes_users.include?(bob)
+  end
+
 
 end
