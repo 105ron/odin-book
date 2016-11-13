@@ -43,6 +43,8 @@
 		user.save!
 	end
 
+	random_friend = User.find(5)
+
 ### FRIENDSHIPS ###
 	#Two friendships, two awaiting approval and two pending friendships for Rhys
 	Friendship.create!(user_id: rhys.id, friend_id: friend.id)
@@ -50,9 +52,9 @@
 	inverse_friends.update(confirmed: true, is_pending: false)
 	 
 
-	Friendship.create!(user_id: rhys.id, friend_id: 5)
+	Friendship.create!(user_id: rhys.id, friend_id: random_friend.id)
 	#find other side of relationship and approve pending friendship
-	random_inverse_friends = Friendship.find_by(user_id: 5, friend_id: rhys.id)
+	random_inverse_friends = Friendship.find_by(user_id: random_friend.id, friend_id: rhys.id)
 	random_inverse_friends.update(confirmed: true, is_pending: false)
 
 
@@ -73,7 +75,29 @@
 ### POSTS ###
 #Each user has 15 posts
 users = User.all
-15.times do
-  content = Faker::Lorem.sentence(45)
-  users.each { |user| user.posts.create!(content: content) }
+users.each do |user|
+	15.times do
+	  content = Faker::Lorem.sentence(45)
+	  user.posts.create!(content: content)
+	end
 end
+
+# create some comments and like posts for confirmed friends
+users = [rhys,friend,random_friend]
+users.each do |user|
+	users.each do |poster|
+		4.times do |n|
+			comments = ["I'll drink a #{Faker::Beer.name} to that!", 
+								 Faker::ChuckNorris.fact,
+								 Faker::StarWars.quote,
+								 "I'm going to complain to #{Faker::Commerce.department}",
+								 "I just finished reading #{Faker::Book.title}, great read!",
+								 Faker::Hipster.sentence,
+								 "I just saw #{Faker::GameOfThrones.character}"] 
+			user.posts[n].comments.create!(content: comments.sample, user_id: poster.id)
+			user.posts[n].likes.create!(user_id: poster.id)
+		end
+	end
+end
+
+	

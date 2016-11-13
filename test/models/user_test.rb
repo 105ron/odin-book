@@ -96,7 +96,7 @@ class UserTest < ActiveSupport::TestCase
     assert rhys.friends?(friend)
     assert friend.friends?(rhys)
     assert_difference 'Friendship.count', -2 do
-      rhys.remove_friendship(friend)
+      rhys.destroy_friendship(friend)
     end
     assert_not rhys.friends?(friend)
     assert_not friend.friends?(rhys)
@@ -110,7 +110,7 @@ class UserTest < ActiveSupport::TestCase
     rhys.request_friendship(friend)
     #Not yet friends without friend approving request
     assert_difference 'Friendship.count', -2 do
-      friend.remove_friendship(rhys)
+      friend.destroy_friendship(rhys)
     end
     assert_not rhys.friends?(friend)
     assert_not friend.friends?(rhys)

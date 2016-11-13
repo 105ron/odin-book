@@ -47,9 +47,9 @@ class User < ApplicationRecord
   end
 
 
-  def remove_friendship(other_user)
+  def destroy_friendship(other_user)
     friendship = find_friendship(self.id, other_user.id)
-    friendship.destroy
+    friendship.destroy unless friendship.nil? #prevent possible errors
   end
 
 
