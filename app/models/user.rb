@@ -19,14 +19,6 @@ class User < ApplicationRecord
   # Email validation
   validates :email, presence: true, length: { maximum: 255 },
             uniqueness: { case_sensitive: false }
-
-
-  def feedone
-    following_ids = "SELECT followed_id FROM relationships
-                     WHERE  follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids})
-                     OR user_id = :user_id", user_id: id)
-  end
  
 
   def request_friendship(other_user)
@@ -66,6 +58,13 @@ class User < ApplicationRecord
   end
 
 
+  def feed
+    friends_ids = "SELECT friend_id FROM friendships WHERE  
+                        user_id = :user_id AND confirmed = true"
+    Post.where("user_id IN (#{friends_ids}) OR user_id = :user_id", user_id: self.id)
+  end
+
+
   # Returns true if the current user needs to accept friendship of other user.
   def pending_friendship?(other_user)
     pending_friends.include?(other_user)
@@ -76,7 +75,6 @@ class User < ApplicationRecord
   def friends?(other_user)
     friends.include?(other_user)
   end
-
 
   # For sign in and creating user with omniauth-facebook through devise
 	def self.find_for_facebook_oauth(auth, signed_in_resource=nil)

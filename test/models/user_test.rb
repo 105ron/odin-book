@@ -102,7 +102,8 @@ class UserTest < ActiveSupport::TestCase
     assert_not friend.friends?(rhys)
   end
 
-  test "should detroy a friendship if a friend denies request" do
+
+  test "should destroy a friendship if a friend denies request" do
     rhys = create(:user)
     friend = create(:user)
     assert_not rhys.friends?(friend)
@@ -116,5 +117,34 @@ class UserTest < ActiveSupport::TestCase
   end
 
 
+  test "feed should have the right posts" do
+    rhys = create(:user)
+    friend = create(:user)
+    #this will be most as factory posts are sequenced n.weeks ago
+    rhys_recent = create(:post, user_id: rhys.id, created_at: Time.now)
+    10.times do
+      create(:post, user_id: rhys.id)
+      create(:post, user_id: friend.id)
+    end
+    #Request friendship
+    rhys.request_friendship(friend)
+    #Make sure posts not in feed until friendship confirmed
+    rhys.posts.each do |post|
+      assert_not friend.feed.include?(post)
+    end
+    friend.posts.each do |post|
+      assert_not rhys.feed.include?(post)
+    end
+    friend.accept_friendship(rhys)
+    #make sure posts are in feed when friendship confirmed
+    rhys.posts.each do |post|
+      assert friend.feed.include?(post)
+    end
+    friend.posts.each do |post|
+      assert rhys.feed.include?(post)
+    end
+    #Check posts are ordered by date
+    assert_equal friend.feed[0], rhys_recent
+  end
 
 end
