@@ -1,2 +1,17 @@
 <% provide(:title, 'Welcome') %>
 <p>The Users Index page lists all users and buttons for sending Friend Requests to those who are not already friends or who don't already have a pending request.</p>
+
+ <table style="width:80%">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Friend status</th>
+  </tr>
+  <% @friends.each do |friend| %>
+    <tr>
+      <td align="center" valign="middle"><%= friend.first_name %></td>
+      <td align="center" valign="middle"><%= friend.last_name %></td>
+      <td align="center" valign="middle"><%= render "friend_status", status: friend.confirmed %></td>
+    </tr>
+  <% end %>
+</table> 
