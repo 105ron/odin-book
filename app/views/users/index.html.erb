@@ -7,7 +7,7 @@
     <th>Last Name</th>
     <th>Friend status</th>
   </tr>
-  <% @friends.each do |friend| %>
+  <% @users.each do |friend| %>
     <tr>
       <td align="center" valign="middle"><%= friend.first_name %></td>
       <td align="center" valign="middle"><%= friend.last_name %></td>
@@ -15,3 +15,4 @@
     </tr>
   <% end %>
 </table> 
+<%= will_paginate %>

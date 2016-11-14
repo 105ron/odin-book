@@ -4,12 +4,15 @@ source 'https://rubygems.org'
 ruby "2.3.1"
 
 
-#Use faker to seed database with dummy users
+# will_paginate to keep paginate posts and users index pages
+gem "will_paginate"
+# Use faker to seed database with dummy users
 gem "faker"
+# fiagro to hold facebook and sendgrid API keys
 gem "figaro"
 # Use omniauth-facebook to sign in using facebook
 gem 'omniauth-facebook'
-#Use devise for user authentications
+# Use devise for user authentications
 gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
