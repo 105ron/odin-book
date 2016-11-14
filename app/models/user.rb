@@ -4,9 +4,11 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :friendships, :dependent => :destroy
-  has_many :friends, :through => :friendships, :source => :user 
-  
+  #has_many :friends, :through => :friendships, :source => :user 
+  # Access friends through custom search below
 
+
+  # Scopes not used but left in case controllers require them 
   scope :pending_requests,  -> (user = nil){ Friendship.where(user_id: user, is_pending: true) }
   scope :confirmed_friends, -> (user = nil){ Friendship.where(user_id: user, confirmed: true) }
 
@@ -21,8 +23,13 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
  
 
-  def request_friendship(other_user)
-    friendships.create(friend_id: other_user.id)
+  # Returns list of other users with relationship status to render users#index page
+  def users_list
+    User.joins("users left OUTER JOIN friendships ON 
+                users.id = friendships.friend_id AND 
+                friendships.user_id = #{self.id} WHERE users.id != #{self.id}")
+                .select("users.*, friendships.confirmed")
+                .order(:last_name)
   end
 
 
@@ -38,6 +45,11 @@ class User < ApplicationRecord
     User.joins("INNER JOIN friendships ON users.id = friend_id WHERE 
                         friendships.user_id = #{self.id} AND 
                         friendships.confirmed = true")
+  end
+
+
+  def request_friendship(other_user)
+    friendships.create(friend_id: other_user.id)
   end
 
 
@@ -97,6 +109,5 @@ class User < ApplicationRecord
       end    
     end
   end
-
 
 end

@@ -147,4 +147,29 @@ class UserTest < ActiveSupport::TestCase
     assert_equal friend.feed[0], rhys_recent
   end
 
+
+  test "should display friendship status for all users" do
+    rhys = create(:user)
+    non_friends = []
+    6.times do
+      non_friends << create(:user)
+    end
+    friend = create(:user)
+    rhys.request_friendship(friend)
+    friend.accept_friendship(rhys)
+    assert_not rhys.users_list.include?(rhys)
+    assert friend.users_list.include?(rhys)
+    non_friends.each do |non_friend|
+      assert rhys.users_list.include?(non_friend)
+    end
+    assert rhys.users_list.length == 7 #
+    rhys.users_list.each do |user|
+      if non_friends.include?(user)
+        assert user.confirmed.nil?
+      else
+        assert user.confirmed == true
+      end
+    end
+  end
+
 end

@@ -250,8 +250,6 @@ Devise.setup do |config|
                              scope: 'email', info_fields: 'email, first_name, last_name'
                              #Facebook to populate email, first and last name
                              #:scope => 'email, user_location, publish_actions'
-
-
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'

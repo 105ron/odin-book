@@ -6,6 +6,7 @@ require 'factory_girl_rails'
 require "minitest/osx"
 Minitest::Reporters.use!
 
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   # Remove fixtures and use FactoryGirl
