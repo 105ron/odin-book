@@ -48,19 +48,19 @@ class User < ApplicationRecord
   end
 
 
-  def request_friendship(other_user)
-    friendships.create(friend_id: other_user.id)
+  def request_friendship(other_user_id)
+    friendships.create(friend_id: other_user_id)
   end
 
 
-  def accept_friendship(other_user)
-    friendship = find_friendship(self.id, other_user.id)
+  def accept_friendship(other_user_id)
+    friendship = find_friendship(self.id, other_user_id)
     friendship.update(is_pending: false, confirmed:true) unless friendship.nil? #prevent possible errors
   end
 
 
-  def destroy_friendship(other_user)
-    friendship = find_friendship(self.id, other_user.id)
+  def destroy_friendship(other_user_id)
+    friendship = find_friendship(self.id, other_user_id)
     friendship.destroy unless friendship.nil? #prevent possible errors
   end
 

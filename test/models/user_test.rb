@@ -83,7 +83,7 @@ class UserTest < ActiveSupport::TestCase
     rhys = create(:user)
     friend = create(:user)
     assert_not rhys.friends?(friend)
-    rhys.request_friendship(friend)
+    rhys.request_friendship(friend.id)
     #Not yet friends without friend approving request
     assert_not rhys.friends?(friend)
     assert_not friend.friends?(rhys)
@@ -91,12 +91,12 @@ class UserTest < ActiveSupport::TestCase
     assert friend.pending_friendship?(rhys)
     assert_not rhys.pending_friendship?(friend)
     #friend accepts request
-    friend.accept_friendship(rhys)
+    friend.accept_friendship(rhys.id)
     #Now check both are friends
     assert rhys.friends?(friend)
     assert friend.friends?(rhys)
     assert_difference 'Friendship.count', -2 do
-      rhys.destroy_friendship(friend)
+      rhys.destroy_friendship(friend.id)
     end
     assert_not rhys.friends?(friend)
     assert_not friend.friends?(rhys)
@@ -107,10 +107,10 @@ class UserTest < ActiveSupport::TestCase
     rhys = create(:user)
     friend = create(:user)
     assert_not rhys.friends?(friend)
-    rhys.request_friendship(friend)
+    rhys.request_friendship(friend.id)
     #Not yet friends without friend approving request
     assert_difference 'Friendship.count', -2 do
-      friend.destroy_friendship(rhys)
+      friend.destroy_friendship(rhys.id)
     end
     assert_not rhys.friends?(friend)
     assert_not friend.friends?(rhys)
@@ -127,7 +127,7 @@ class UserTest < ActiveSupport::TestCase
       create(:post, user_id: friend.id)
     end
     #Request friendship
-    rhys.request_friendship(friend)
+    rhys.request_friendship(friend.id)
     #Make sure posts not in feed until friendship confirmed
     rhys.posts.each do |post|
       assert_not friend.feed.include?(post)
@@ -135,7 +135,7 @@ class UserTest < ActiveSupport::TestCase
     friend.posts.each do |post|
       assert_not rhys.feed.include?(post)
     end
-    friend.accept_friendship(rhys)
+    friend.accept_friendship(rhys.id)
     #make sure posts are in feed when friendship confirmed
     rhys.posts.each do |post|
       assert friend.feed.include?(post)
@@ -155,8 +155,8 @@ class UserTest < ActiveSupport::TestCase
       non_friends << create(:user)
     end
     friend = create(:user)
-    rhys.request_friendship(friend)
-    friend.accept_friendship(rhys)
+    rhys.request_friendship(friend.id)
+    friend.accept_friendship(rhys.id)
     assert_not rhys.users_list.include?(rhys)
     assert friend.users_list.include?(rhys)
     non_friends.each do |non_friend|

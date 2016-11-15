@@ -1,7 +1,7 @@
-<% if status == true %>
-  <p>Add link to destroy friendship<p>
-<% elsif status == false %>
+<% if f.confirmed == true %>
+  <%= link_to "Remove Friend", friendship_path(f), method: :delete  %>
+<% elsif f.confirmed == false %>
   <p>Awaiting Confirmation</p>
 <% else %>
-  <p>Add link to request friendship</p>
+  <%= link_to "Add Friend", friendships_path(:id => f.id), method: :post  %>
 <% end %>

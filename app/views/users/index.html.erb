@@ -11,7 +11,7 @@
     <tr>
       <td align="center" valign="middle"><%= friend.first_name %></td>
       <td align="center" valign="middle"><%= friend.last_name %></td>
-      <td align="center" valign="middle"><%= render "friend_status", status: friend.confirmed %></td>
+      <td align="center" valign="middle"><%= render "friend_status", f: friend %></td>
     </tr>
   <% end %>
 </table> 
