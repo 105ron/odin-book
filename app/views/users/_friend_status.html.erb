@@ -1,7 +1,7 @@
 <% if f.confirmed == true %>
-  <%= link_to "Remove Friend", friendship_path(f), method: :delete  %>
+  <p><%= link_to "Remove Friend", friendship_path(f), method: :delete  %></p>
 <% elsif f.confirmed == false %>
-  <p>Awaiting Confirmation</p>
+  <p>Awaiting Confirmation <%= link_to "Cancel?", friendship_path(f), method: :delete  %></p>
 <% else %>
-  <%= link_to "Add Friend", friendships_path(:id => f.id), method: :post  %>
+ <p><%= link_to "Add Friend", friendships_path(:id => f.id), method: :post  %></p>
 <% end %>

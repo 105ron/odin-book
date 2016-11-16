@@ -8,4 +8,9 @@ module ApplicationHelper
       page_title + " | " + base_title                 
     end
   end
+
+
+  def find_friend_requests
+    @friend_requests = current_user.pending_friends
+  end
 end

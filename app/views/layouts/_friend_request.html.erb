@@ -1,0 +1,10 @@
+<ul>
+  <% @friend_requests.each do |friend| %>
+    <li><%= "#{friend.first_name} #{friend.last_name}" %></li>
+    <ul>
+        <li><%= link_to "Accept", friendship_path(friend), method: :patch %></li>
+        <li><%= link_to "Reject", friendship_path(friend), method: :delete %></li>
+    </ul>
+  <% end %>
+</ul>
+

@@ -7,7 +7,7 @@ class FriendshipsController < ApplicationController
 
 
   def update
-    current_user.accept_friendship(params[:id])v
+    current_user.accept_friendship(params[:id])
     redirect_to :back
   end
 

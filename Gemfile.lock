@@ -41,7 +41,16 @@ GEM
     addressable (2.4.0)
     ansi (1.5.0)
     arel (7.1.4)
+    autoprefixer-rails (6.5.3)
+      execjs
     bcrypt (3.1.11)
+    bootstrap-multiselect-rails (0.9.9)
+      rails (>= 4.0.0)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
+    bootstrap-will_paginate (0.0.10)
+      will_paginate
     builder (3.2.2)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -244,6 +253,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-multiselect-rails
+  bootstrap-sass (= 3.3.6)
+  bootstrap-will_paginate (= 0.0.10)
   byebug
   coffee-rails (~> 4.2)
   devise

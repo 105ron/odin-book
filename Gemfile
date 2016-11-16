@@ -4,6 +4,10 @@ source 'https://rubygems.org'
 ruby "2.3.1"
 
 
+# bootstrap for dropdown menus
+gem 'bootstrap-multiselect-rails'
+gem 'bootstrap-sass', '3.3.6'
+gem 'bootstrap-will_paginate', '0.0.10'
 # will_paginate to keep paginate posts and users index pages
 gem "will_paginate"
 # Use faker to seed database with dummy users

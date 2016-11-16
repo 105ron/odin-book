@@ -21,6 +21,7 @@
       <%= link_to 'SignUp', new_user_registration_path %>
       <%= link_to 'Login with Facebook', user_facebook_omniauth_authorize_path %>
     <% end %>
+    <%= render 'layouts/friend_request' if @friend_requests %>
     <%= yield %>
   </body>
 </html>
