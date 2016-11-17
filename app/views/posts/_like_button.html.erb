@@ -1,0 +1,7 @@
+<div align="right">
+  <% if p.likes.any? {|h| h[:user_id] == current_user.id} %>
+    <%= link_to "Unlike Post", like_path(p), method: :delete  %>
+    <% else %>
+    <%= link_to "Like Post", likes_path(:id => p.id), method: :post  %>
+  <% end %>
+</div>

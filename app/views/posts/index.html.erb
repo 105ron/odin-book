@@ -11,7 +11,7 @@
     <tr>
       <td align="center" valign="top"><%= "#{post.user.first_name} #{post.user.last_name}" %></td>
       <td><%= post.content %>
-        <p>Posted <%= time_ago_in_words(post.created_at) %> ago.</p>
+        <p>Posted <%= time_ago_in_words(post.created_at) %> ago.  <%= render "like_button", p: post %></p>
         <% unless post.likes.empty? %>
           <%= render "post_likes", p: post %>
         <% end %>
