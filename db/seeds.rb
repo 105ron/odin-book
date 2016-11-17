@@ -75,10 +75,10 @@
 ### POSTS ###
 #Each user has 15 posts
 users = User.all
-users.each do |user|
-	15.times do
+15.times do |n|
+	users.each do |user|
 	  content = Faker::Lorem.sentence(45)
-	  user.posts.create!(content: content)
+	  user.posts.create!(content: content, created_at: n.hours.ago)
 	end
 end
 
@@ -94,7 +94,7 @@ users.each do |user|
 								 "I just finished reading #{Faker::Book.title}, great read!",
 								 Faker::Hipster.sentence,
 								 "I just saw #{Faker::GameOfThrones.character}"] 
-			user.posts[n].comments.create!(content: comments.sample, user_id: poster.id)
+			user.posts[n].comments.create!(content: comments.sample, user_id: poster.id, created_at: n.minutes.ago)
 			user.posts[n].likes.create!(user_id: poster.id)
 		end
 	end

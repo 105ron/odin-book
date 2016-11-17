@@ -1,0 +1,13 @@
+<br>
+<table style="width:80%">
+  <tr>
+    <th>Poster</th>
+    <th>Comment</th>
+  </tr>
+  <% p.comments.each do |comment| %>
+    <tr>
+      <td><%= "#{comment.user.first_name} #{comment.user.last_name}" %></td>
+      <td><%= comment.content %></td>
+    </tr>
+  <% end %>
+</table>
