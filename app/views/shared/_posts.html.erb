@@ -18,7 +18,9 @@
         <% unless post.comments.empty? %>
           <%= render "shared/post_comments", p: post %>
         <% end %>
+        <%= render "shared/create_comment", p: post %>
       </td>
+    </tr>
   <% end %>
 </table> 
 <%= will_paginate @posts %>

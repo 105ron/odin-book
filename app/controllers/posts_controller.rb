@@ -3,15 +3,16 @@ class PostsController < ApplicationController
   before_action :find_friend_requests
 
   def index
-    @post = Post.new #to make a new post
     @posts = current_user.feed.paginate(page: params[:page]).per_page(10)
+    @post = Post.new #to make a new post
+    @comment = Comment.new #to make new comment on post
   end
 
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to root_url
+      redirect_to :back
     else
       render 'index'
     end
