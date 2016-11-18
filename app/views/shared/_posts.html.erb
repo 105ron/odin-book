@@ -1,0 +1,24 @@
+<% provide(:title, 'Feed') %>
+
+
+ <table style="width:80%">
+  <tr>
+    <th>Poster</th>
+    <th>Post</th>
+
+  </tr>
+  <% @posts.each do |post| %>
+    <tr>
+      <td align="center" valign="top"><%=link_to "#{post.user.first_name} #{post.user.last_name}", user_path(post.user_id)%></td>
+      <td><%= post.content %>
+        <p>Posted <%= time_ago_in_words(post.created_at) %> ago.  <%= render "shared/like_button", p: post %></p>
+        <% unless post.likes.empty? %>
+          <%= render "shared/post_likes", p: post %>
+        <% end %>
+        <% unless post.comments.empty? %>
+          <%= render "shared/post_comments", p: post %>
+        <% end %>
+      </td>
+  <% end %>
+</table> 
+<%= will_paginate @posts %>
