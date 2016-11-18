@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
 
   def show
+    @post = Post.new #To create new post on current_user show page
     @posts = @user.posts.paginate(page: params[:page]).per_page(10)
   end
 
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
 
     def check_if_friends
       @user = User.find(params[:id])
-      unless current_user.friends?(@user)
+      unless current_user.friends?(@user) || current_user == @user
         flash[:error] = "Only friends of #{@user.first_name} can view this page"
         redirect_to :root
       end

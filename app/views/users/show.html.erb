@@ -1,3 +1,4 @@
-<p>The User Show page contains their Profile information, photo, and Posts.</p>
-
+<% if current_user == @user %>
+  <%= render "shared/create_post" %>
+<% end %>
 <%= render "shared/posts" %>

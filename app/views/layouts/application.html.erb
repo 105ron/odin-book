@@ -9,17 +9,14 @@
   </head>
 
   <body>
-  	<% flash.each do |message_type, message| %>
+    <div>
+      <%= link_to 'All Users', users_path %> <%= link_to 'Your Profile', user_path(current_user) %> <%= link_to 'Your Feed', posts_path %>
+      <% if user_signed_in? %>
+        <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+      <% end %>
+    </div>
+    <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-    <% end %>
-    
-    <% if user_signed_in? %>
-      <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
-    <% else %>
-      <p>You are not signed in.</p>
-      <%= link_to 'Login', new_user_session_path %>
-      <%= link_to 'SignUp', new_user_registration_path %>
-      <%= link_to 'Login with Facebook', user_facebook_omniauth_authorize_path %>
     <% end %>
     <%= render 'layouts/friend_request' if @friend_requests %>
     <%= yield %>
