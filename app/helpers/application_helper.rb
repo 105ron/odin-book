@@ -13,4 +13,5 @@ module ApplicationHelper
   def find_friend_requests
     @friend_requests = current_user.pending_friends
   end
+
 end
