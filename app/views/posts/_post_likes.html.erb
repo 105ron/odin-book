@@ -1,6 +1,6 @@
 <p>The following Users like this post</p>
 <% str = "" %>
 <% p.likes.each do |like| %>
-  <% str << "#{like.user.first_name} #{like.user.last_name}, " %>
+  <%=link_to "#{like.user.first_name} #{like.user.last_name}", user_path(like.user_id) %>
 <% end %>
 <p><%= str[0..-3] %></p>       
