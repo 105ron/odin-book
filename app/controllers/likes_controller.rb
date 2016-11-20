@@ -17,7 +17,7 @@ class LikesController < ApplicationController
     if @like.destroy
       flash[:success] = "Like removed from post!"
     end
-    redirect_to :back
+    redirect_to :root
   end
 
 end
