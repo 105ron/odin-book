@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "Post created!"
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       render 'index'
     end

@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     if @comment.save
       flash[:success] = "Post created!"
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       redirect_to :root
     end

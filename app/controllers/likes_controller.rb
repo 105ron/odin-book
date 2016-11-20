@@ -5,7 +5,7 @@ class LikesController < ApplicationController
     @post.likes.build(user_id: current_user.id)
     if @post.save
       flash[:success] = "Like added to post!"
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       redirect_to :root
     end

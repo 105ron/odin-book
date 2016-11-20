@@ -3,14 +3,14 @@ class FriendshipsController < ApplicationController
   def create
     current_user.request_friendship(params[:id])
     flash[:success] = "Friend request sent"
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
 
   def update
     current_user.accept_friendship(params[:id])
     flash[:success] = "Friend request accepted"
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
 
   end
 
@@ -23,7 +23,7 @@ class FriendshipsController < ApplicationController
     else
       flash[:success] = "Friendship request denied"
     end
-    redirect_to :back
+    redirect_back(fallback_location: root_path)
   end
 
 end
