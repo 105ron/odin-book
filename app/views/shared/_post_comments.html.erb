@@ -6,7 +6,7 @@
   </tr>
   <% p.comments.each do |comment| %>
     <tr>
-      <td><%= link_to "#{comment.user.first_name} #{comment.user.last_name}", user_path(comment.user_id)%></td>
+      <td><%= link_to name_helper(comment.user), user_path(comment.user_id)%></td>
       <td><%= comment.content %>
       <p>Posted <%= time_ago_in_words(comment.created_at) %> ago.</p>
       </td>

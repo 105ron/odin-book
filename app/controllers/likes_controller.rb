@@ -7,7 +7,7 @@ class LikesController < ApplicationController
       flash[:success] = "Like added to post!"
       redirect_to :back
     else
-      render 'index'
+      redirect_to :root
     end
   end
 

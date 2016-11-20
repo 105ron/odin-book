@@ -6,7 +6,9 @@
   </tr>
   <% @posts.each do |post| %>
     <tr>
-      <td align="center" valign="top"><%=link_to "#{post.user.first_name} #{post.user.last_name}", user_path(post.user_id)%></td>
+      <td align="center" valign="top"><%=link_to name_helper(post.user), user_path(post.user_id)%>
+        <br><%= gravatar_for post.user %>
+      </td>
       <td><%= post.content %>
         <p>Posted <%= time_ago_in_words(post.created_at) %> ago.  <%= render "shared/like_button", p: post %></p>
         <% unless post.likes.empty? %>

@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def show
     @post = Post.new #To create new post on current_user show page
     @posts = @user.posts.paginate(page: params[:page]).per_page(10)
+    @comment = Comment.new #for comments on users posts
   end
 
   private

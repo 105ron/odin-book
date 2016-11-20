@@ -3,14 +3,13 @@
 
  <table style="width:80%">
   <tr>
-    <th>First Name</th>
-    <th>Last Name</th>
+    <th>Name</th>
     <th>Friend status</th>
   </tr>
   <% @users.each do |friend| %>
     <tr>
-      <td align="center" valign="middle"><%= friend.first_name %></td>
-      <td align="center" valign="middle"><%= friend.last_name %></td>
+      <td align="center" valign="middle"><%= name_helper friend %>
+      <br><%= gravatar_for friend %></td>
       <td align="center" valign="middle"><%= render "friend_status", f: friend %></td>
     </tr>
   <% end %>

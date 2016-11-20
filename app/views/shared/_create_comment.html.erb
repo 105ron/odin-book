@@ -1,7 +1,7 @@
 <%= form_for @comment do |f| %>
   <%= f.hidden_field :post_id, value: p.id %>
 
-  <%= f.label "Add your comment" %>:
+  <%= f.label "Add your comment to this status update" %>:
 
 
   <%= f.text_field :content %><br />
